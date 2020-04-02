@@ -35,7 +35,7 @@
     <attribute name="title">
      <string>Single</string>
     </attribute>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="run_nifid_button">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -687,7 +687,7 @@
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+     <widget class="QDoubleSpinBox" name="nifid_freq_spin">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -709,7 +709,7 @@
        <double>36000.000000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+     <widget class="QDoubleSpinBox" name="nifid_pulselength_spin">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -731,7 +731,7 @@
        <double>0.000500000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+     <widget class="QDoubleSpinBox" name="nifid_rfamp_spin">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -756,7 +756,7 @@
        <double>0.500000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_8">
+     <widget class="QDoubleSpinBox" name="nifid_bfield_spin">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -781,7 +781,7 @@
        <double>2.070000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_9">
+     <widget class="QDoubleSpinBox" name="nifid_readout_spin">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -806,7 +806,7 @@
        <double>0.060000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_10">
+     <widget class="QDoubleSpinBox" name="nifid_mutetime_spin">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -831,7 +831,7 @@
        <double>0.002000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_11">
+     <widget class="QDoubleSpinBox" name="nifid_lowpass_spin">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -856,7 +856,7 @@
        <double>1000.000000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="doubleSpinBox_12">
+     <widget class="QDoubleSpinBox" name="nifid_signalrange">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -926,7 +926,7 @@
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_2">
+     <widget class="QComboBox" name="lockin_mode">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -951,7 +951,7 @@
        </property>
       </item>
      </widget>
-     <widget class="QComboBox" name="comboBox_3">
+     <widget class="QComboBox" name="rf_mode">
       <property name="geometry">
        <rect>
         <x>60</x>
