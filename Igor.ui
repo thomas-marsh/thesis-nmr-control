@@ -687,7 +687,7 @@
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="nifid_freq_spin">
+     <widget class="QDoubleSpinBox" name="nifid_freq">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -709,7 +709,7 @@
        <double>36000.000000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="nifid_pulselength_spin">
+     <widget class="QDoubleSpinBox" name="nifid_pulselength">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -731,7 +731,7 @@
        <double>0.000500000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="nifid_rfamp_spin">
+     <widget class="QDoubleSpinBox" name="nifid_rfamp">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -756,7 +756,7 @@
        <double>0.500000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="nifid_bfield_spin">
+     <widget class="QDoubleSpinBox" name="nifid_bfield">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -781,7 +781,7 @@
        <double>2.070000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="nifid_readout_spin">
+     <widget class="QDoubleSpinBox" name="nifid_readout">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -806,7 +806,7 @@
        <double>0.060000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="nifid_mutetime_spin">
+     <widget class="QDoubleSpinBox" name="nifid_mutetime">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -831,7 +831,7 @@
        <double>0.002000000000000</double>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="nifid_lowpass_spin">
+     <widget class="QDoubleSpinBox" name="nifid_lowpass">
       <property name="geometry">
        <rect>
         <x>120</x>
