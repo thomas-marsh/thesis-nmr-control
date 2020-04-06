@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>292</width>
-    <height>542</height>
+    <height>532</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>291</width>
-     <height>541</height>
+     <width>308</width>
+     <height>531</height>
     </rect>
    </property>
    <property name="autoFillBackground">
@@ -469,7 +469,7 @@
      <property name="title">
       <string>Fit Type</string>
      </property>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="fit_type">
       <property name="geometry">
        <rect>
         <x>80</x>
