@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Apr  2 12:23:03 2020
-
-@author: thomasmarsh
-"""
 
 
 from PyQt5 import QtWidgets, uic, QtCore
@@ -14,27 +9,43 @@ import nidaqmx
 import pprint
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
+
+"""
+
+NMR Control Software
+May, 2020
+Thomas Marsh, Gordon Jones, Brian Collett
+Hamilton College
+
+Read the included documentation for the current state and other useful details
+
+For read/write examples, see io_examples.py
+    
+
+
+
+"""
+
+#Set to false if you are not testing with actual equipment attached
 devices_connected = False
 
 
-#Code that should help with scaling the 
-if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
-    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
-
-if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
-    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
-
+#Main class that sets up the user interface
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()
-        uic.loadUi('Igor.ui', self)
+        uic.loadUi('nmr_control.ui', self)
         self.activate_buttons()
         self.show()
     
+    #This method is where all button linkups are made for the UI
     def activate_buttons(self):
         self.run_nifid_button.clicked.connect(self.run_nifid)
         
+    #Method for running an NIFID
+    # closely mimics the structure of the Igor code
     def run_nifid(self):
         freq = self.nifid_freq.value()
         width = self.nifid_pulselength.value()
@@ -43,24 +54,27 @@ class Ui(QtWidgets.QMainWindow):
         t_mute = self.nifid_mutetime.value()
         t_read = self.nifid_readout.value()
         
-        self.nifid_set_digital_io(0, 1)
+        self.nifid_set_digital_io(0, True)
     
         self.nifid_set_bfield(b_field)
         
         self.nifid_dsp_pulse(freq, width, rf_amp, t_mute, t_read)
         
-        self.nifid_set_digital_io(0, 0)
+        self.nifid_set_digital_io(0, False)
         
+    
+    #Sets the digital output channel to a given value (boolean)
     def nifid_set_digital_io(self, channel, value):
         print("Setting Digital IO")
         if devices_connected:
             with nidaqmx.Task() as task:
-                task.do_channels.add_do_voltage_chan("Dev1/do" + str(channel))
+                task.do_channels.add_do_chan("Dev1/do" + str(channel))
                 task.write(value)
         
         
     def nifid_set_bfield(self, b_field):
         print("Setting the B field")
+        port_num = 1
         if devices_connected:
             with nidaqmx.Task() as task:
                 task.ao_channels.add_ao_voltage_chan("Dev1/ao0")
@@ -89,6 +103,8 @@ class Ui(QtWidgets.QMainWindow):
         if rf_mode == 2:
             print("aCORN")
             #Do FID with GPIB
+            self.gpib_init()
+            
             
         #num_pts = round(width / ao_time_step)
             
@@ -114,19 +130,54 @@ class Ui(QtWidgets.QMainWindow):
         mute_bar_wave = np.ones(wave_size)
         
         for i in range(int(width / clock_step)):
-            pulse1_wave[i] = 1
-            pulse2_wave[i] = 1
+            pulse1_wave[i] = True
+            pulse2_wave[i] = True
         
         for i in range(int(mute_time / clock_step)):
-            mute_bar_wave[i] = 0
-            mute_wave[i] = 1
+            mute_bar_wave[i] = False
+            mute_wave[i] = False
             
         if devices_connected:
+            print("Send waves to device")
+            with nidaqmx.Task() as task:
+                task.do_channels.add_do_chan('/Dev1/port0/line' + str(pulse1_chan))
+                task.write(pulse1_wave)
+                
+            with nidaqmx.Task() as task:
+                task.do_channels.add_do_chan('/Dev1/port0/line' + str(pulse2_chan))
+                task.write(pulse2_wave)
+                
+            with nidaqmx.Task() as task:
+                task.do_channels.add_do_chan('/Dev1/port0/line' + str(mute_chan))
+                task.write(mute_wave)
+                
+            with nidaqmx.Task() as task:
+                task.do_channels.add_do_chan('/Dev1/port0/line' + str(mute_bar_chan))
+                task.write(mute_bar_wave)
+                
+        if rf_mode == 1:
+            print('Use DAQ for RF')
             
+    def gpib_init(self):
+        print('initializing gpib')
     
         
             
 
 app = QtWidgets.QApplication(sys.argv)
 window = Ui()
+
+os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+
+#Code that should help with scaling the 
+if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+
+if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+
+# hint = app.sizeHint()
+# if hint.isValid():
+#     app.setMinimumSize(hint)
+    
 app.exec_()
